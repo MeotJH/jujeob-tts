@@ -12,7 +12,6 @@ def get(text):
     tts = gTTS(text=text, lang='ko')
     filename = f'{text}_voice.mp3'
     tts.save(filename)
-    playsound.playsound(filename)
     try:
         with open(filename, 'rb') as f:
             data = base64.b64encode(f.read()).decode('UTF-8')

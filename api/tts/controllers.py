@@ -25,6 +25,10 @@ class TTS(Resource):
     @api.marshal_with(users_response_model, envelope='data')
     def get(self):
         voice = request.args.get('voice')
+
+        #validation 처리하기 voice 가 널일떄
+        if not voice:
+            return {'voice': 'voice is required'}, HTTPStatus.BAD_REQUEST
         logger.debug(f"voice:{voice}")
         file_binary = services.get(voice)
         logger.info(f"file_binary:{file_binary}")
