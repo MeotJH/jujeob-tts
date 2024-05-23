@@ -16,7 +16,7 @@ tts_request_model = api.model('TTSRequestModel', {
                               )
 
 users_response_model = api.model('TTSResponseModel', {
-    'voice': binary_field,
+    #'voice': binary_field,
     'text' : tts_text_field,
 }
                                  )
@@ -32,7 +32,7 @@ class TTS(Resource):
         if not name:
             return {'name': 'name is required'}, HTTPStatus.BAD_REQUEST
         jujeob = services.get_jujeob(name=name)
-        return {'voice': jujeob['voice'], 'text': jujeob['text']}, HTTPStatus.OK
+        return { 'text': jujeob['text']}, HTTPStatus.OK
 
 
 

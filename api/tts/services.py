@@ -30,6 +30,6 @@ def get_jujeob(name):
                type(method) == property]
     random_method = getattr(jujeob, random.choice(methods))
     response = {}
-    response['voice'] = get(random_method)
+    #response['voice'] = get(random_method)
     response['text'] = random_method
     return response
