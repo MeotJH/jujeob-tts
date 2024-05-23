@@ -24,14 +24,14 @@ users_response_model = api.model('TTSResponseModel', {
 
 @api.route('/', strict_slashes=False)
 class TTS(Resource):
-    @api.doc(params={'voice': 'Hello World'})
+    @api.doc(params={'name': 'Hello World'})
     @api.marshal_with(users_response_model, envelope='data')
     def get(self):
-        voice = request.args.get('voice')
+        name = request.args.get('name')
 
-        if not voice:
-            return {'voice': 'voice is required'}, HTTPStatus.BAD_REQUEST
-        jujeob = services.get_jujeob(voice)
+        if not name:
+            return {'name': 'name is required'}, HTTPStatus.BAD_REQUEST
+        jujeob = services.get_jujeob(name=name)
         return {'voice': jujeob['voice'], 'text': jujeob['text']}, HTTPStatus.OK
 
 
