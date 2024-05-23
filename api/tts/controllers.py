@@ -8,14 +8,17 @@ from api.tts import services
 from util.logging_util import logger
 
 voice_field = fields.String(required=True, title='목소리 타겟 텍스트', description="해당 문자가 TTS로 변환됨", example='Hello World')
-binary_field = fields.String(required=True, title='파일 바이너리 데이터', description="TTS 바이너리로 변환된")
+binary_field = fields.String(required=True, title='tts 목소리 바이너리 데이터', description="TTS 바이너리로 변환된")
+tts_text_field = fields.String(required=True, title='tts 텍스트 데이터', description="TTS 바이너리로 변환된")
 
 tts_request_model = api.model('TTSRequestModel', {
     'voice': voice_field}
                               )
 
 users_response_model = api.model('TTSResponseModel', {
-    'voice': binary_field}
+    'voice': binary_field,
+    'text' : tts_text_field,
+}
                                  )
 
 
@@ -26,13 +29,10 @@ class TTS(Resource):
     def get(self):
         voice = request.args.get('voice')
 
-        #validation 처리하기 voice 가 널일떄
         if not voice:
             return {'voice': 'voice is required'}, HTTPStatus.BAD_REQUEST
-        logger.debug(f"voice:{voice}")
-        file_binary = services.get(voice)
-        logger.info(f"file_binary:{file_binary}")
-        return {'voice': file_binary}, HTTPStatus.OK
+        jujeob = services.get_jujeob(voice)
+        return {'voice': jujeob['voice'], 'text': jujeob['text']}, HTTPStatus.OK
 
 
 
