@@ -25,7 +25,7 @@ class JujeobRepository:
 
     @property
     def FIVE(self):
-        return f'''{self._name}아(가) 너 혹시 MBTI가 CUTE니?'''
+        return f'''{self._name}아(가) 너 혹시 M B T I가 CUTE니?'''
 
     @property
     def SIX(self):
